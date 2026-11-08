@@ -12,7 +12,6 @@ function RecipeDetail() {
   async function fetchRecipe() {
     try {
       const { data } = await axios.get(`https://dummyjson.com/recipes/${id}`);
-      console.log(data);
       setRecipe(data);
     } catch (error) {
       setErrorMsg("Could not load recipe details. Please try again.");
