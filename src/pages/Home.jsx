@@ -3,16 +3,19 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import RecipeCard from "../components/RecipeCard";
 import { Link } from "react-router";
+import useLoading from "../hooks/useLoading";
 
 function Home() {
   const [recipes, setrecipes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { loading, startLoading, stopLoading } = useLoading();
+
   const [total, setTotal] = useState(0);
   const [errorMsg, setErrorMsg] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
   async function fetchRecipes(skipCount, query) {
     try {
+       startLoading();
       let url = `https://dummyjson.com/recipes?limit=6&skip=${skipCount}`;
 
       if (query) {
@@ -27,7 +30,7 @@ function Home() {
     } catch (error) {
       setErrorMsg("Please Try Again Later!!");
     }
-    setLoading(false);
+    stopLoading();
   }
 
   useEffect(() => {
